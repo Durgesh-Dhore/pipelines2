@@ -2,21 +2,31 @@ pipeline {
     agent any
 
     stages {
-        stage('number1') {
+        stage('git scm checkout') {
             steps {
-                echo 'Hello World'
+                git branch: 'main', url: 'https://github.com/Durgesh-Dhore/maven-project-new.git'
             }
-            }
-            stage('number2') {
+        }
+        stage('build') {
             steps {
-                sleep 100
+                withMaven(jdk: 'JAVA_HOME', maven: 'MVN_HOME', traceability: true) {
+                sh 'mvn validate'
+}
             }
-            }
-            stage('number3') {
+        }
+        stage('compile') {
             steps {
-                echo 'Hello Pune'
+                withMaven(jdk: 'JAVA_HOME', maven: 'MVN_HOME', traceability: true) {
+                sh 'mvn compile'
+}
+            }
+        }
+        stage('package') {
+            steps {
+                withMaven(jdk: 'JAVA_HOME', maven: 'MVN_HOME', traceability: true) {
+                sh 'mvn package'
+}
             }
         }
     }
 }
-
