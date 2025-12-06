@@ -21,12 +21,5 @@ pipeline {
 }
             }
         }
-        stage('package') {
-            steps {
-                withMaven(jdk: 'JAVA_HOME', maven: 'MVN_HOME', traceability: true) {
-                sh 'mvn package'
-}
-            }
-        }
     }
 }
